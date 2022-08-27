@@ -1,24 +1,36 @@
 #include "sort.h"
 /**
- * quick_sort - main
+ * quick_sort - holberton mandatory prototype
+ * @array: array
+ * @size: size of array
+ * @Return: Void
+ */
+void quick_sort(int *array, size_t size)
+{
+	real_quick_sort(array, start, end);
+}
+/**
+ * real_quick_sort - main
  * @array: array
  * @size: size
  * Return: Void
  */
- void quick_sort(int *array, size_t size)
+void real_quick_sort(int *array, size_t size,int star, int end)
 {
-	int end = 0, start = 0, i = 0;
-	int partition;
+	int end = 0, start = 0;
+	int pi = 0;
 	
-	while(array[i])
+	while(array[end])
 		end++;
-		i++;
 
 	if (start < end)
 	{
+	pi = partition_lomutosky(array, size, start, end);
+	/**real_quick_sort(array, size, start, end)*/
+	real_quick_sort(array, start, pi - 1);
+	real_quick_sort(array, pi + 1, end);
 	}
 }
-
 /**
  * partition_lomutosky - main
  * @array: array
@@ -26,19 +38,18 @@
  * end: end of array
  * Return: index
  */
-int partition_lomutosky(int **array, int start, int end)
+int partition_lomutosky(int **array, size_t size, int start, int end)
 {
-	int a = *array;
-	int pivot = *array[end]; /* Hay que sacar high*/
-	int i = (low - 1), int j; /* Index del elemento mas pequeño*/
+	int pivot = *array[end];
+	int i = (low - 1), int j;
 	for (j = start; j <= end - 1; j++)
 	{
-		if (a[j] <= pivot)
+		if (array[j] <= pivot)
 		{
 		i++;
-		/**swapeamos*/
+		swap(array[i], array[end]);
 		}
 	}
-	/**swapeamos de nuevo*/
+	swap(array[i + 1], array[end]);
 	return (i + 1);
 }
