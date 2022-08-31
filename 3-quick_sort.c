@@ -53,8 +53,16 @@ void realquickSort(int array[], int low, int high, int size)
 	if (low < high)
 	{
 		pi = partition(array, low, high, realsize);
+	if (pi - low < high - pi)
+	{
 		realquickSort(array, low, pi - 1, realsize);
+		low = pi + 1;
+	}
+	else
+	{
 		realquickSort(array, pi + 1, high, realsize);
+		high = pi - 1;
+	}
 	}
 }
 /**
