@@ -23,33 +23,19 @@ void swap(int *a, int *b)
 int partition(int array[], int low, int high, int realsize)
 {
 	int pivot = array[high];
-	int i = (low - 1), j = 0;
+	int i = (low - 1), j;
 
-	while (low < high)
+	for (j = low; j < high; j++)
 	{
-		if (array[i] > pivot)
+		if (array[j] <= pivot)
 		{
-		j = i + 1;
-		while (j < high)
-		{
-			if (array[i] < pivot)
-			{
-				swap(&array[i], &array[j]);
-				print_array(array, realsize);
-				break;
-			}
-		
-			j++;
-		}
-		if (pivot < array[i])
-		{
-			swap(&array[i + 1], &array[high]);
+			i++;
+			swap(&array[i], &array[j]);
 			print_array(array, realsize);
 		}
-		pivot = array[high];
-		}
 	}
-	i++;
+	swap(&array[i + 1], &array[high]);
+	print_array(array, realsize);
 	return (i + 1);
 }
 /**
