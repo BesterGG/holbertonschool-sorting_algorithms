@@ -5,7 +5,7 @@
  *@b: b value
  *Return: Nothing
  */
-void swap(int *a, int *b, int *array, size_t size)
+void swap(int *a, int *b)
 {
 	int t = *a;
 	*a = *b;
@@ -23,17 +23,33 @@ void swap(int *a, int *b, int *array, size_t size)
 int partition(int array[], int low, int high, int realsize)
 {
 	int pivot = array[high];
-	int i = (low - 1), j;
+	int i = (low - 1), j = 0;
 
-	for (j = low; j < high; j++)
+	while (low < high)
 	{
-		if (array[j] <= pivot)
+		if (array[i] > pivot)
 		{
-			i++;
-			swap(&array[i], &array[j], array, size);
+		j = i + 1;
+		while (j < high)
+		{
+			if (array[i] < pivot)
+			{
+				swap(&array[i], &array[j]);
+				print_array(array, realsize);
+				break;
+			}
+		
+			j++;
+		}
+		if (pivot < array[i])
+		{
+			swap(&array[i + 1], &array[high]);
+			print_array(array, realsize);
+		}
+		pivot = array[high];
 		}
 	}
-	swap(&array[i + 1], &array[high], array, size);
+	i++;
 	return (i + 1);
 }
 /**
