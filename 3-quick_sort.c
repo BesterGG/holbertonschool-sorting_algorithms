@@ -1,55 +1,72 @@
 #include "sort.h"
 /**
- * quick_sort - holberton mandatory prototype
- * @array: array
- * @size: size of array
- * @Return: Void
+ *swap- swap the values of in the nodes.
+ *@a: a value
+ *@b: b value
+ *Return: Nothing
  */
-void quick_sort(int *array, size_t size)
+void swap(int *a, int *b)
 {
-	real_quick_sort(array, start, end);
+	int t = *a;
+	*a = *b;
+	*b = t;
 }
-/**
- * real_quick_sort - main
- * @array: array
- * @size: size
- * Return: Void
- */
-void real_quick_sort(int *array, size_t size,int star, int end)
-{
-	int end = 0, start = 0;
-	int pi = 0;
-	
-	while(array[end])
-		end++;
 
-	if (start < end)
-	{
-	pi = partition_lomutosky(array, size, start, end);
-	/**real_quick_sort(array, size, start, end)*/
-	real_quick_sort(array, start, pi - 1);
-	real_quick_sort(array, pi + 1, end);
-	}
-}
 /**
- * partition_lomutosky - main
- * @array: array
- * start: start of array
- * end: end of array
- * Return: index
+ *partition- partition lomuto implementation
+ *@array: array to be sorted
+ *@low: the first value on the array
+ *@high: the last element on the array
+ *@realsize: size of the array
+ *Return: value of
  */
-int partition_lomutosky(int **array, size_t size, int start, int end)
+int partition(int array[], int low, int high, int realsize)
 {
-	int pivot = *array[end];
-	int i = (low - 1), int j;
-	for (j = start; j <= end - 1; j++)
+	int pivot = array[high];
+	int i = (low - 1), j;
+
+	for (j = low; j < high; j++)
 	{
 		if (array[j] <= pivot)
 		{
-		i++;
-		swap(array[i], array[end]);
+			i++;
+			swap(&array[i], &array[j]);
+			print_array(array, realsize);
 		}
 	}
-	swap(array[i + 1], array[end]);
+	if (array[i + 1] != array[high])
+	{
+		swap(&array[i + 1], &array[high]);
+		print_array(array, realsize);
+	}
 	return (i + 1);
+}
+/**
+ *realquickSort -sort array
+ *@array: the array to be sorted
+ *@low: the first element on the array
+ *@high: the last element on the array
+ *@size: lenght of the array
+ *Return: Nothing
+ */
+void realquickSort(int array[], int low, int high, int size)
+{
+	int pi, realsize = size;
+
+	if (low < high)
+	{
+		pi = partition(array, low, high, realsize);
+		realquickSort(array, low, pi - 1, realsize);
+		realquickSort(array, pi + 1, high, realsize);
+	}
+}
+/**
+ *quick_sort -sorting an array
+ *@array: the array
+ *@size: lenght of the array
+ *Return: nothing
+ */
+void quick_sort(int *array, size_t size)
+{
+	realquickSort(array, 0, size - 1, size);
 }
