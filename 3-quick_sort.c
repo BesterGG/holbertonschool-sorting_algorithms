@@ -5,7 +5,7 @@
  *@b: b value
  *Return: Nothing
  */
-void swap(int *a, int *b)
+void swap(int *a, int *b, int *array, size_t size)
 {
 	int t = *a;
 	*a = *b;
@@ -30,12 +30,10 @@ int partition(int array[], int low, int high, int realsize)
 		if (array[j] <= pivot)
 		{
 			i++;
-			swap(&array[i], &array[j]);
-			print_array(array, realsize);
+			swap(&array[i], &array[j], array, size);
 		}
 	}
-	swap(&array[i + 1], &array[high]);
-	print_array(array, realsize);
+	swap(&array[i + 1], &array[high], array, size);
 	return (i + 1);
 }
 /**
@@ -53,16 +51,8 @@ void realquickSort(int array[], int low, int high, int size)
 	if (low < high)
 	{
 		pi = partition(array, low, high, realsize);
-	if (pi - low < high - pi)
-	{
 		realquickSort(array, low, pi - 1, realsize);
-		low = pi + 1;
-	}
-	else
-	{
 		realquickSort(array, pi + 1, high, realsize);
-		high = pi - 1;
-	}
 	}
 }
 /**
